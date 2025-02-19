@@ -10,6 +10,7 @@ linspace_array = np.linspace(0, 1, 5)
 normal_array = np.random.normal(1, 10, size=(2, 5))
 randint_array = np.random.randint(0, 100, (4, 4))
 empty_array = np.empty(5)
+new_array = fixed_array[0:3:2, -2:]
 
 # 2. Індексація та підмасиви
 first_element = fixed_array[0, 0]
@@ -78,6 +79,7 @@ def print_results():
     print("Variance:\n", var_value)
     print("Median:\n", median_value)
     print("50th Percentile:\n", percentile_50)
+    print("New Array:\n", new_array)
 
 
 print_results()
