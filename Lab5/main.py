@@ -40,12 +40,18 @@ plot_humidity(df.loc['2016-02'], 'в) Вологість за лютий 2016 р
 plot_humidity(df.loc['2014-01':'2016-03'], 'г) Вологість з січня 2014 до березня 2016')
 
 # д) 2014 та 2015 на одному графіку
+humidity_2014 = df.loc['2014']['humidity']
+humidity_2015 = df.loc['2015']['humidity']
+humidity_2014.index = humidity_2014.index.dayofyear
+humidity_2015.index = humidity_2015.index.dayofyear
+
 plt.figure(figsize=(12, 4))
-plt.plot(df.loc['2014'].index, df.loc['2014']['humidity'], label='2014')
-plt.plot(df.loc['2015'].index, df.loc['2015']['humidity'], label='2015')
-plt.title('д) Вологість у 2014 та 2015 роках')
-plt.xlabel('Дата')
+plt.plot(humidity_2014.index, humidity_2014.values, label='2014')
+plt.plot(humidity_2015.index, humidity_2015.values, label='2015')
+plt.title('д) Порівняння вологості по днях року: 2014 та 2015')
+plt.xlabel('День року')
 plt.ylabel('Вологість (%)')
+plt.xticks(ticks=range(0, 366, 30))
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
