@@ -33,6 +33,19 @@ df_cleaned = df_filled.drop_duplicates()
 # 3.6 Перетворення типу "Дата" у формат datetime
 df_cleaned.loc[:, 'Дата'] = pd.to_datetime(df_cleaned['Дата'], errors='coerce')
 
+# 3.7 Видалення аномальних значень
+df_cleaned = df_cleaned[
+    (df_cleaned['Середня температура (°C)'] <= 45) & (df_cleaned['Середня температура (°C)'] >= -30) &
+    (df_cleaned['Вологість (%)'] >= 0) & (df_cleaned['Вологість (%)'] <= 100) &
+    (df_cleaned['Швидкість вітру (км/год)'] >= 0) &
+    (df_cleaned['Атмосферний тиск (гПа)'] >= 900) & (df_cleaned['Атмосферний тиск (гПа)'] <= 1100)
+    ]
+print("Аномальні значення видалено.")
+
+# 3.8 Усереднення значень для однакових дат
+df_cleaned = df_cleaned.groupby('Дата', as_index=False).mean(numeric_only=True)
+print("Дублікати по даті агреговано шляхом обчислення середнього значення.")
+
 # Підсумкова інформація
 print("\nІнформація про дані після обробки:")
 print(df_cleaned.info())
